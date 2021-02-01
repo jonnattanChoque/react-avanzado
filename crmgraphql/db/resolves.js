@@ -11,7 +11,10 @@ const MakeToken = (user, word, expiresIn) => {
 // Resolvers
 const resolvers = {
     Query: {
-        obtener: () => "Algo"
+        getUser: async(_, {token}) => {
+            const userId = await jwt.verify(token, process.env.SECRET_WORD)
+            return userId;
+        }
     },
     Mutation: {
         newUser: async(_, {userInput}) => {
